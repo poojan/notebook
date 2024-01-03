@@ -3,10 +3,23 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useCallback, useRef, useState } from "react";
+import { Ref, useCallback, useRef, useState } from "react";
 
-function NewNoteInput(props: NewNoteInputProps) {
+type NewNoteInputProps = {
+  ref?: Ref<HTMLInputElement>;
+  placeholder: string;
+};
 
+const NewNoteInput = (props: NewNoteInputProps) => {
+  return (
+    <div className="my-1">
+      <Input
+        placeholder={props.placeholder}
+        className="border-none border-collapse focus:outline-none focus-visible:ring-0 rounded-none"
+        ref={props.ref}
+      />
+    </div>
+  );
 }
 
 function NewNote() {
@@ -41,51 +54,12 @@ function NewNote() {
       ref={containerRef}
     >
       {isFocused && (
-        <div className="my-1">
-          <Input
-            placeholder="Title"
-            className="border-none border-collapse focus:outline-none focus-visible:ring-0 rounded-none"
-            ref={titleRef}
-          />
-        </div>
+        <NewNoteInput placeholder="Title" ref={titleRef} />
       )}
       <div className="my-1">
-        <Input
-          placeholder="Take a note..."
-          className="border-none border-collapse focus:outline-none focus-visible:ring-0 rounded-none"
-        />
+        <NewNoteInput placeholder="Take a note..." />
       </div>
     </Card>
-  );
-
-  return isFocused ? (
-    <div
-      className="w-[350px] cursor-pointer bg-gray-100"
-      tabIndex={0}
-      // onFocus={onFocusNewNote}
-      onBlur={onBlurNewNote}
-      ref={containerRef}
-    >
-      {/* {isFocused && ()} */}
-      <div className="my-1">
-        <Input placeholder="Title" className="border-none" ref={titleRef} />
-      </div>
-      <div className="my-1">
-        <Input placeholder="Take a note..." className="border-none" />
-      </div>
-    </div>
-  ) : (
-    <div
-      className="w-[350px] cursor-pointer bg-gray-100"
-      tabIndex={0}
-      onFocus={onFocusNewNote}
-      // onBlur={onBlurNewNote}
-      ref={containerRef}
-    >
-      <div className="my-1">
-        <Input placeholder="Take a note..." className="border-none" />
-      </div>
-    </div>
   );
 }
 
