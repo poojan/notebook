@@ -1,3 +1,5 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+
 export type NoteType = {
   id: number;
   title: string;
@@ -15,10 +17,10 @@ type Props = {
 
 function Note({ note }: Props) {
   return (
-    <div>
-      <h3>{note.title}</h3>
-      <div>{note.body}</div>
-    </div>
+    <Card className="w-[350px] cursor-pointer">
+      <CardHeader className="py-2 font-medium">{note.title}</CardHeader>
+      <CardContent className="text-sm">{note.body}</CardContent>
+    </Card>
   );
 }
 

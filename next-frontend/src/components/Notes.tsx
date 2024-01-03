@@ -1,47 +1,47 @@
+import { randCatchPhrase, randParagraph } from "@ngneat/falso";
 import Note, { NoteType } from "./Note";
 
-function Notes() {
-  const notes: NoteType[] = [
-    {
-      id: 1,
-      title: "Note 1",
-      body: "This is the body of note 1",
-      pinned: true,
-      bgColor: "#ffffff",
-      bgImage: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: 2,
-      title: "Note 2",
-      body: "This is the body of note 2",
-      pinned: true,
-      bgColor: "#ffffff",
-      bgImage: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: 3,
-      title: "Note 3",
-      body: "This is the body of note 3",
-      pinned: true,
-      bgColor: "#ffffff",
-      bgImage: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
+const notes: NoteType[] = [
+  {
+    id: 1,
+    title: randCatchPhrase(),
+    body: randParagraph(),
+    pinned: true,
+    bgColor: "#ffffff",
+    bgImage: "",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 2,
+    title: randCatchPhrase(),
+    body: randParagraph(),
+    pinned: true,
+    bgColor: "#ffffff",
+    bgImage: "",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 3,
+    title: randCatchPhrase(),
+    body: randParagraph(),
+    pinned: true,
+    bgColor: "#ffffff",
+    bgImage: "",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
 
+function Notes() {
   return (
     <div>
-      <h1>Notes</h1>
-      <div>
-        {notes.map((note: NoteType) => (
-          <Note key={note.id} note={note} />
-        ))}
-      </div>
+      {notes.map((note: NoteType) => (
+        <div key={note.id} className="m-2">
+          <Note note={note} />
+        </div>
+      ))}
     </div>
   );
 }
