@@ -1,4 +1,4 @@
-export type CreateNoteDto = {
+export type NoteContentDto = {
   title: string;
   body: string;
 };

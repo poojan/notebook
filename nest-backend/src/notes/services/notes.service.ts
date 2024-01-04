@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Note } from '@prisma/client';
-import { CreateNoteDto } from '../dtos/notes.dto';
+import { NoteContentDto } from '../dtos/notes.dto';
 
 @Injectable()
 export class NotesService {
@@ -11,7 +11,15 @@ export class NotesService {
     return this.prisma.note.findMany();
   }
 
-  async create(data: CreateNoteDto): Promise<Note> {
+  async create(data: NoteContentDto): Promise<Note> {
     return this.prisma.note.create({ data });
+  }
+
+  async update(id: number, data: NoteContentDto): Promise<Note> {
+    return this.prisma.note.update({ where: { id }, data });
+  }
+
+  async delete(id: number): Promise<Note> {
+    return this.prisma.note.delete({ where: { id } });
   }
 }
