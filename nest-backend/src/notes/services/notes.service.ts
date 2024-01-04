@@ -20,9 +20,7 @@ export class NotesService {
     try {
       return await this.prisma.note.update({ where: { id }, data });
     } catch (error) {
-      const handledError = handlePrismaError('Note', error, id);
-      if (handledError) throw handledError;
-      throw error;
+      this.handleError(error, id);
     }
   }
 
@@ -30,9 +28,13 @@ export class NotesService {
     try {
       return await this.prisma.note.delete({ where: { id } });
     } catch (error) {
-      const handledError = handlePrismaError('Note', error, id);
-      if (handledError) throw handledError;
-      throw error;
+      this.handleError(error, id);
     }
+  }
+
+  private handleError(error: any, id?: number) {
+    const handledError = handlePrismaError('Note', error, id);
+    if (handledError) throw handledError;
+    throw error;
   }
 }
