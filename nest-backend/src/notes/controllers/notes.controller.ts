@@ -10,31 +10,37 @@ import {
 } from '@nestjs/common';
 import { NotesService } from '../services/notes.service';
 import { NoteContentDto } from '../dtos/notes.dto';
+import { Note } from '@prisma/client';
 
 @Controller('notes')
 export class NotesController {
   constructor(private notesService: NotesService) {}
 
   @Get()
-  async findAll() {
-    return this.notesService.findAll();
+  async findAll(): Promise<Note[]> {
+    return await this.notesService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<Note> {
+    return await this.notesService.findOne(id);
   }
 
   @Post()
-  async create(@Body() data: NoteContentDto) {
-    return this.notesService.create(data);
+  async create(@Body() data: NoteContentDto): Promise<Note> {
+    return await this.notesService.create(data);
   }
 
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() data: NoteContentDto,
-  ) {
-    return this.notesService.update(id, data);
+  ): Promise<Note> {
+    return await this.notesService.update(id, data);
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
-    return this.notesService.delete(id);
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<Note> {
+    return await this.notesService.delete(id);
   }
 }
