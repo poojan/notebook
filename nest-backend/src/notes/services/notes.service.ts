@@ -1,45 +1,17 @@
-import { randCatchPhrase, randParagraph } from '@ngneat/falso';
 import { Injectable } from '@nestjs/common';
-import { NoteType } from '../../lib/types/note.type';
-
-const notes: NoteType[] = [
-  {
-    id: 1,
-    title: randCatchPhrase(),
-    body: randParagraph(),
-    pinned: true,
-    bgColor: '#ffffff',
-    bgImage: '',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: 2,
-    title: randCatchPhrase(),
-    body: randParagraph(),
-    pinned: true,
-    bgColor: '#ffffff',
-    bgImage: '',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: 3,
-    title: randCatchPhrase(),
-    body: randParagraph(),
-    pinned: true,
-    bgColor: '#ffffff',
-    bgImage: '',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Note } from '@prisma/client';
+import { CreateNoteDto } from '../dtos/notes.dto';
 
 @Injectable()
 export class NotesService {
-  constructor() {}
+  constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<NoteType[]> {
-    return notes;
+  async findAll(): Promise<Note[]> {
+    return this.prisma.note.findMany();
+  }
+
+  async create(data: CreateNoteDto): Promise<Note> {
+    return this.prisma.note.create({ data });
   }
 }
